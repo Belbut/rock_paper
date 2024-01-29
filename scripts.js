@@ -1,11 +1,10 @@
+
+/* -CREATE A CONSTANT VARIABLE NAMED GAME_POSSIBLE_CHOICES_ARRAY OF TYPE ARRAY.
+(would be best with a object but we haven't reach that part yet) */
+
+const GAME_POSSIBLE_CHOICES_ARRAY = ["Rock", "Paper", "Scissor"];
+
 /*
-
-A function named getComputerChoice, that will return 
-a random option between "ROCK" "PAPER" "SCISSOR".
-
--CREATE A CONSTANT VARIABLE NAMED GAME_POSSIBLE_CHOICES_ARRAY OF TYPE ARRAY.
-(would be best with a object but we haven't reach that part yet)
-
 -CREATE FUNCTION named getComputerChoice with no needed input variable
     -create a variable named idComputerChoice
         -idComputerChoice will store a random generated number 
@@ -13,12 +12,36 @@ a random option between "ROCK" "PAPER" "SCISSOR".
     -convert the result int idComputerChoice into a string of available choices
     -return the computer choice
 */
-
-const GAME_POSSIBLE_CHOICES_ARRAY = ["Rock", "Paper", "Scissor"];
-
 function getComputerChoice() {
-    let idComputerChoice = Math.floor(Math.random()*3);
+    let idComputerChoice = Math.floor(Math.random() * 3);
     return GAME_POSSIBLE_CHOICES_ARRAY[idComputerChoice]
 }
 
-console.log(getComputerChoice())
+/*
+-CREATE FUNCTION named getPlayerChoice with no needed input variable
+    -create a variable named playerChoice
+        -will store the choice from the player from received input.
+        -standardize input to be case insensitive
+        -if problem arise due to bad input prompt again.
+    return standardized player choice 
+*/
+function getPlayerChoice() {
+    let playerChoice = prompt("Chose your weapon wisely");
+    if(playerChoice === null){
+        console.log("Player was afraid to play")
+        return;
+    } 
+    let standPlayerChoice = playerChoice.trim();
+    standPlayerChoice = playerChoice.charAt(0).toUpperCase() + playerChoice.slice(1).toLowerCase();
+
+    let isChoiceValid = GAME_POSSIBLE_CHOICES_ARRAY.includes(standPlayerChoice);
+    if (isChoiceValid) {
+        return standPlayerChoice;
+    } else {
+        alert("Wrong weapon please select from \"rock, paper or scissor\"")
+        return getPlayerChoice()
+    }
+}
+
+
+console.log(getPlayerChoice())
