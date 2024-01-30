@@ -1,9 +1,12 @@
 
-/* -CREATE A CONSTANT VARIABLE NAMED GAME_POSSIBLE_CHOICES_ARRAY OF TYPE ARRAY.
+/* -CREATE A CONSTANT VARIABLE NAMED WEAPONS_ARRAY OF TYPE ARRAY.
 (would be best with a object but we haven't reach that part yet) */
 
-const GAME_POSSIBLE_CHOICES_ARRAY = ["Rock", "Paper", "Scissor"];
-
+const WEAPONS_ARRAY = ["Rock", "Paper", "Scissor"];
+const GAME_RESULTS_ARRAY = ["PLAYER 1", "PLAYER 2", "DRAW"];
+const MAKE_CHOICE_MESSAGE = "Chose your weapon wisely";
+const CANCEL_PROMPT_MESSAGE = "Player was afraid to play";
+const WONG_WEAPON_MESSAGE ="Wrong weapon please select from \"rock, paper or scissor\""
 /*
 -CREATE FUNCTION named getComputerChoice with no needed input variable
     -create a variable named idComputerChoice
@@ -14,7 +17,7 @@ const GAME_POSSIBLE_CHOICES_ARRAY = ["Rock", "Paper", "Scissor"];
 */
 function getComputerChoice() {
     let idComputerChoice = Math.floor(Math.random() * 3);
-    return GAME_POSSIBLE_CHOICES_ARRAY[idComputerChoice]
+    return WEAPONS_ARRAY[idComputerChoice]
 }
 
 /*
@@ -26,19 +29,19 @@ function getComputerChoice() {
     return standardized player choice 
 */
 function getPlayerChoice() {
-    let playerChoice = prompt("Chose your weapon wisely");
+    let playerChoice = prompt(MAKE_CHOICE_MESSAGE);
     if (playerChoice === null) {
-        console.log("Player was afraid to play")
+        console.log(CANCEL_PROMPT_MESSAGE)
         return;
     }
     let standPlayerChoice = playerChoice.trim();
     standPlayerChoice = playerChoice.charAt(0).toUpperCase() + playerChoice.slice(1).toLowerCase();
 
-    let isChoiceValid = GAME_POSSIBLE_CHOICES_ARRAY.includes(standPlayerChoice);
+    let isChoiceValid = WEAPONS_ARRAY.includes(standPlayerChoice);
     if (isChoiceValid) {
         return standPlayerChoice;
     } else {
-        alert("Wrong weapon please select from \"rock, paper or scissor\"")
+        alert(WONG_WEAPON_MESSAGE)
         return getPlayerChoice()
     }
 }
@@ -72,18 +75,20 @@ function playRound(playerChoice, computerChoice) {
         case "Rock,Scissor":
         case "Paper,Rock":
         case "Scissor,Paper":
-            return "Player_1"
-
+            return GAME_RESULTS_ARRAY[0];
+ 
         case "Rock,Paper":
         case "Paper,Scissor":
         case "Scissor,Rock":
-            return "Player_2"
-
+            return GAME_RESULTS_ARRAY[1];
+ 
         case "Rock,Rock":
         case "Paper,Paper":
         case "Scissor,Scissor":
-            return "Draw"
-    }
+            return GAME_RESULTS_ARRAY[2];
+    } 
 }
 
+/* -CREATE FUNCTION named presentWinner
+ */
 console.log(playRound(getComputerChoice(), getComputerChoice()))
