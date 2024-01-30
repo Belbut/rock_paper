@@ -27,10 +27,10 @@ function getComputerChoice() {
 */
 function getPlayerChoice() {
     let playerChoice = prompt("Chose your weapon wisely");
-    if(playerChoice === null){
+    if (playerChoice === null) {
         console.log("Player was afraid to play")
         return;
-    } 
+    }
     let standPlayerChoice = playerChoice.trim();
     standPlayerChoice = playerChoice.charAt(0).toUpperCase() + playerChoice.slice(1).toLowerCase();
 
@@ -43,5 +43,47 @@ function getPlayerChoice() {
     }
 }
 
+/* 
+-CREATE FUNCTION named playRound with 2 input variable playerChoice AND computerChoice
+    create variable roundChoices that is (playerChoice,computerChoice) 
+        -playerChoice that will receive from getPlayerChoice
+        -computerChoice that will receive from getComputerChoice
+        
+        -create a switch tree for the possible outcomes:
+            Define winner based on the choices of each player
+            Rock- Scissor : win
+            Rock- Paper : loss
+            Rock - Rock : draw
+            Paper - Rock : win
+            Paper - Scissor :loss
+            Paper - Paper : draw
+            Scissor - Scissor: draw
+            Scissor - Paper: win
+            Scissor - Rock: loss
 
-console.log(getPlayerChoice())
+        return result from the round
+    
+*/
+
+function playRound(playerChoice, computerChoice) {
+    let roundChoices = [playerChoice, computerChoice];
+
+    switch (roundChoices.toString()) {
+        case "Rock,Scissor":
+        case "Paper,Rock":
+        case "Scissor,Paper":
+            return "Player_1"
+
+        case "Rock,Paper":
+        case "Paper,Scissor":
+        case "Scissor,Rock":
+            return "Player_2"
+
+        case "Rock,Rock":
+        case "Paper,Paper":
+        case "Scissor,Scissor":
+            return "Draw"
+    }
+}
+
+console.log(playRound(getComputerChoice(), getComputerChoice()))
