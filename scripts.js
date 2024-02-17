@@ -72,9 +72,19 @@ function getPlayerChoiceByPrompt() {
         return result from the round
     
 */
+
+const weapon1 = document.querySelector(".display-results .player1")
+const weapon2 = document.querySelector(".display-results .player2")
+
+function displayRoundWeapons(roundChoices) {
+    weapon1.textContent = roundChoices[0]
+    weapon2.textContent = roundChoices[1]
+}
+
 function playRound(playerChoice, computerChoice) {
     let roundChoices = [playerChoice, computerChoice];
-    console.log(playerChoice + " vs " + computerChoice)
+
+    displayRoundWeapons(roundChoices)
 
     let gameResult;
     switch (roundChoices.toString()) {
@@ -106,23 +116,25 @@ function playRound(playerChoice, computerChoice) {
     -Create simple 3 case switch statement for the results and directing to the messages
  
     */
+
+const message = document.querySelector(".message")
+
 function presentWinner(gameResult) {
     switch (gameResult) {
-        case ROUND_RESULTS_ARRAY[0]:
+        case ROUND_RESULTS_ARRAY[0]: //PLAYER 1 WON
             player_1_victories++;
-            console.log(ROUND_RESULT_0_MESSAGE);
-            alert(ROUND_RESULT_0_MESSAGE);
+            message.textContent = ROUND_RESULT_0_MESSAGE;
             break;
 
-        case ROUND_RESULTS_ARRAY[1]:
+        case ROUND_RESULTS_ARRAY[1]://PLAYER 2 WON
             player_2_victories++;
-            console.log(ROUND_RESULT_1_MESSAGE);
-            alert(ROUND_RESULT_1_MESSAGE);
+            message.textContent = ROUND_RESULT_1_MESSAGE;
+
             break;
 
-        case ROUND_RESULTS_ARRAY[2]:
-            console.log(ROUND_RESULT_2_MESSAGE);
-            alert(ROUND_RESULT_2_MESSAGE);
+        case ROUND_RESULTS_ARRAY[2]://DRAW
+            message.textContent = ROUND_RESULT_2_MESSAGE;
+
             break;
     }
     return gameResult
@@ -143,3 +155,4 @@ weaponsButtons.forEach((btn) =>
     }
     )
 )
+
