@@ -9,7 +9,7 @@ const WONG_WEAPON_MESSAGE = "Wrong weapon please select from \"rock, paper or sc
 const ROUND_RESULT_0_MESSAGE = `The battle was won by ${ROUND_RESULTS_ARRAY[0]}`;
 const ROUND_RESULT_1_MESSAGE = `The battle was won by ${ROUND_RESULTS_ARRAY[1]}`;;
 const ROUND_RESULT_2_MESSAGE = "The battle was a Draw";
-const GAME_RESULT_WINNER = `Final result player1= ${player_1_victories} and player2= ${player_2_victories} from a total of ${numberOfRounds} games.`;
+const WEAPON_SELECTED_MESSAGE = "Player weapon: ";
 let player_1_victories = 0;
 let player_2_victories = 0;
 /*
@@ -26,14 +26,14 @@ function getComputerChoice() {
 }
 
 /*
--CREATE FUNCTION named getPlayerChoice with no needed input variable
+-CREATE FUNCTION named getPlayerChoiceByPrompt with no needed input variable
     -create a variable named playerChoice
         -will store the choice from the player from received input.
         -standardize input to be case insensitive
         -if problem arise due to bad input prompt again.
     return standardized player choice 
 */
-function getPlayerChoice() {
+function getPlayerChoiceByPrompt() {
     let playerChoice = prompt(MAKE_CHOICE_MESSAGE);
     if (playerChoice === null) {
         console.log(CANCEL_PROMPT_MESSAGE)
@@ -47,14 +47,14 @@ function getPlayerChoice() {
         return standPlayerChoice;
     } else {
         alert(WONG_WEAPON_MESSAGE)
-        return getPlayerChoice()
+        return getPlayerChoiceByPrompt()
     }
 }
 
 /* 
 -CREATE FUNCTION named playRound with 2 input variable playerChoice AND computerChoice
     create variable roundChoices that is (playerChoice,computerChoice) 
-        -playerChoice that will receive from getPlayerChoice
+        -playerChoice that will receive from getPlayerChoiceByPrompt
         -computerChoice that will receive from getComputerChoice
         
         -create a switch tree for the possible outcomes:
@@ -74,6 +74,7 @@ function getPlayerChoice() {
 */
 function playRound(playerChoice, computerChoice) {
     let roundChoices = [playerChoice, computerChoice];
+    console.log(playerChoice + " vs " + computerChoice)
 
     let gameResult;
     switch (roundChoices.toString()) {
@@ -94,10 +95,10 @@ function playRound(playerChoice, computerChoice) {
         case "Scissor,Scissor":
             gameResult = ROUND_RESULTS_ARRAY[2];
             break;
-    
-        }
-       return presentWinner(gameResult);
-       
+
+    }
+    return presentWinner(gameResult);
+
 }
 
 /* -CREATE FUNCTION named presentWinner() with one variable gameResult that should be one of the 3 possible game Results
@@ -108,13 +109,13 @@ function playRound(playerChoice, computerChoice) {
 function presentWinner(gameResult) {
     switch (gameResult) {
         case ROUND_RESULTS_ARRAY[0]:
-            player_1_victories ++;
+            player_1_victories++;
             console.log(ROUND_RESULT_0_MESSAGE);
             alert(ROUND_RESULT_0_MESSAGE);
             break;
 
         case ROUND_RESULTS_ARRAY[1]:
-            player_2_victories ++;
+            player_2_victories++;
             console.log(ROUND_RESULT_1_MESSAGE);
             alert(ROUND_RESULT_1_MESSAGE);
             break;
@@ -127,11 +128,18 @@ function presentWinner(gameResult) {
     return gameResult
 }
 
-function playGame(numberOfRounds=5){
+function playComputerGame(numberOfRounds = 5) {
     for (let i = 0; i < numberOfRounds; i++) {
-        playRound(getComputerChoice(),getComputerChoice())  
+        playRound(getComputerChoice(), getComputerChoice())
     }
     console.log(`Final result player1= ${player_1_victories} and player2= ${player_2_victories} from a total of ${numberOfRounds} games.`)
 }
 
-playGame()
+const weaponsButtons = document.querySelectorAll(".weapon");
+
+weaponsButtons.forEach((btn) =>
+    btn.addEventListener("click", () => {
+        playRound(btn.textContent, getComputerChoice())
+    }
+    )
+)
