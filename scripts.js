@@ -10,8 +10,8 @@ const ROUND_RESULT_0_MESSAGE = `The battle was won by ${ROUND_RESULTS_ARRAY[0]}`
 const ROUND_RESULT_1_MESSAGE = `The battle was won by ${ROUND_RESULTS_ARRAY[1]}`;;
 const ROUND_RESULT_2_MESSAGE = "The battle was a Draw";
 const WEAPON_SELECTED_MESSAGE = "Player weapon: ";
-let player_1_victories = 0;
-let player_2_victories = 0;
+let player_1_hitpoints = 3;
+let player_2_hitpoints = 3;
 
 function getComputerChoice() {
     let idComputerChoice = Math.floor(Math.random() * 3);
@@ -95,42 +95,55 @@ function playRound(playerChoice, computerChoice) {
             break;
 
     }
-    return presentWinner(gameResult);
+
+    
+    presentRoundWinner(gameResult);
+    checkGameWinner();
 
 }
 
 const message = document.querySelector(".message")
 
-function presentWinner(gameResult) {
+function presentRoundWinner(gameResult) {
+    let player1 = document.querySelector(".player1") 
+    let player2 = document.querySelector(".player2") 
     switch (gameResult) {
         case ROUND_RESULTS_ARRAY[0]: //PLAYER 1 WON
-            player_1_victories++;
+            player_2_hitpoints--;
+            removeHitpoint(player2)
             message.textContent = ROUND_RESULT_0_MESSAGE;
             break;
 
         case ROUND_RESULTS_ARRAY[1]://PLAYER 2 WON
-            player_2_victories++;
+            player_1_hitpoints--;
+            removeHitpoint(player1)
             message.textContent = ROUND_RESULT_1_MESSAGE;
-
             break;
 
         case ROUND_RESULTS_ARRAY[2]://DRAW
             message.textContent = ROUND_RESULT_2_MESSAGE;
-
             break;
     }
-    return gameResult
+
+    
+/*     return gameResult
+ */}
+
+function removeHitpoint(playerElement){
+   let topHitpointElement = playerElement.querySelector(".health-bar .active-hitpoint");
+   topHitpointElement.classList.replace("active-hitpoint" , "inactive-hitpoint")
 }
 
-function playComputerGame(numberOfRounds = 5) {
+function checkGameWinner(){
+
+}
+
+/* function playComputerGame(numberOfRounds = 5) {
     for (let i = 0; i < numberOfRounds; i++) {
         playRound(getComputerChoice(), getComputerChoice())
     }
     console.log(`Final result player1= ${player_1_victories} and player2= ${player_2_victories} from a total of ${numberOfRounds} games.`)
-}
-
-
-
+} */
 
 const weaponsButtons = document.querySelectorAll(".weapons button");
 
