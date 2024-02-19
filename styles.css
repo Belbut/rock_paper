@@ -92,15 +92,23 @@ main {
     background-color: red;
 }
 
-.message{
+.display{
     background-color:brown;
-
-    height: 50px;
+    height: 65px;
     width: 40%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
-.message .log{
-    line-height: 50px;
+.display .weapon{
+    aspect-ratio: 1/1;
+    height: 100% ;
+    border: 1px solid black;
+    box-sizing: border-box; 
+}
+
+.display .message{
     font-size: 25px;
     font-weight: bold;
     color: var(--ivory-white);
@@ -120,15 +128,15 @@ main {
     background-position: center center;
 }
 
-.weapons .rock{
+.weapons #Rock{
     background-image: url(./img/rock.png) ;
 }
 
-.weapons .paper{
+.weapons #Paper{
     background-image: url(./img/paper.png) ;
 }
 
-.weapons .scissor{
+.weapons #Scissor{
     background-image: url(./img/scissor.png) ;
     transform: scalex(-1);
 }

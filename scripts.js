@@ -12,27 +12,12 @@ const ROUND_RESULT_2_MESSAGE = "The battle was a Draw";
 const WEAPON_SELECTED_MESSAGE = "Player weapon: ";
 let player_1_victories = 0;
 let player_2_victories = 0;
-/*
--CREATE FUNCTION named getComputerChoice with no needed input variable
-    -create a variable named idComputerChoice
-        -idComputerChoice will store a random generated number 
-        between 1 and 3
-    -convert the result int idComputerChoice into a string of available choices
-    -return the computer choice
-*/
+
 function getComputerChoice() {
     let idComputerChoice = Math.floor(Math.random() * 3);
     return WEAPONS_ARRAY[idComputerChoice]
 }
 
-/*
--CREATE FUNCTION named getPlayerChoiceByPrompt with no needed input variable
-    -create a variable named playerChoice
-        -will store the choice from the player from received input.
-        -standardize input to be case insensitive
-        -if problem arise due to bad input prompt again.
-    return standardized player choice 
-*/
 function getPlayerChoiceByPrompt() {
     let playerChoice = prompt(MAKE_CHOICE_MESSAGE);
     if (playerChoice === null) {
@@ -51,34 +36,37 @@ function getPlayerChoiceByPrompt() {
     }
 }
 
-/* 
--CREATE FUNCTION named playRound with 2 input variable playerChoice AND computerChoice
-    create variable roundChoices that is (playerChoice,computerChoice) 
-        -playerChoice that will receive from getPlayerChoiceByPrompt
-        -computerChoice that will receive from getComputerChoice
-        
-        -create a switch tree for the possible outcomes:
-            Define winner based on the choices of each player
-            Rock- Scissor : win
-            Rock- Paper : loss
-            Rock - Rock : draw
-            Paper - Rock : win
-            Paper - Scissor :loss
-            Paper - Paper : draw
-            Scissor - Scissor: draw
-            Scissor - Paper: win
-            Scissor - Rock: loss
-
-        return result from the round
-    
-*/
-
-const weapon1 = document.querySelector(".display-results .player1 .weapon")
-const weapon2 = document.querySelector(".display-results .player2 .weapon")
+const weapon1 = document.querySelector(".display .player1.weapon")
+const weapon2 = document.querySelector(".display .player2.weapon")
 
 function displayRoundWeapons(roundChoices) {
-    weapon1.textContent = roundChoices[0]
-    weapon2.textContent = roundChoices[1]
+    var img1 = createElementImageWeapon(roundChoices[0])
+    var img2 = createElementImageWeapon(roundChoices[1])
+    weapon1.replaceChildren(img1)
+    weapon2.replaceChildren(img2)
+}
+
+function createElementImageWeapon(weapon) {
+    var img = document.createElement("img")
+
+    switch (weapon) {
+        case WEAPONS_ARRAY[0]://rock
+            img.src = "./img/rock.png"
+            img.alt = weapon
+            break;
+
+        case WEAPONS_ARRAY[1]://paper
+            img.src = "./img/paper.png"
+            img.alt = weapon
+            break;
+
+        case WEAPONS_ARRAY[2]://scissor
+            img.src = "./img/scissor.png"
+            img.alt = weapon
+            break;
+    }
+
+    return img
 }
 
 function playRound(playerChoice, computerChoice) {
@@ -111,12 +99,6 @@ function playRound(playerChoice, computerChoice) {
 
 }
 
-/* -CREATE FUNCTION named presentWinner() with one variable gameResult that should be one of the 3 possible game Results
-
-    -Create simple 3 case switch statement for the results and directing to the messages
- 
-    */
-
 const message = document.querySelector(".message")
 
 function presentWinner(gameResult) {
@@ -147,11 +129,14 @@ function playComputerGame(numberOfRounds = 5) {
     console.log(`Final result player1= ${player_1_victories} and player2= ${player_2_victories} from a total of ${numberOfRounds} games.`)
 }
 
-const weaponsButtons = document.querySelectorAll(".weapons-selection button");
+
+
+
+const weaponsButtons = document.querySelectorAll(".weapons button");
 
 weaponsButtons.forEach((btn) =>
     btn.addEventListener("click", () => {
-        playRound(btn.textContent, getComputerChoice())
+        playRound(btn.id, getComputerChoice())
     }
     )
 )
