@@ -1,0 +1,134 @@
+:root {
+    --dark-green: #009B4D;
+    --ivory-white: #FAF5E9;
+    --tangerine-yellow: #FFCC00;
+    --battle-size:150px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: Value-Serif-Regular, Halant, Vollkorn, Georgia, sans-serif;
+    text-align: center;
+}
+
+body {
+    background: var(--ivory-white);
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+header,
+footer {
+    text-align: center;
+    background-color: black;
+    color: var(--ivory-white);
+}
+
+footer a{
+   color: var(--tangerine-yellow);
+}
+
+main {
+    flex: 1;
+    align-self: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    width: 80%;
+}
+
+
+
+.battle {
+    width: 40%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: var(--battle-size);
+    background-color: var(--dark-green);
+    background-image: url("./img/background.jpg");
+    background-position: center center;
+}
+
+.battle .middle-ground{
+    color: var(--tangerine-yellow);
+}
+
+.player1,
+.player2 {
+    display: flex;
+}
+
+.avatar {
+    height: var(--battle-size);
+    width: var(--battle-size);
+    display: block;
+}
+
+.player1 .avatar {
+    transform: scalex(-1);
+}
+
+.health-bar{
+    display: flex;
+    flex-direction: column;
+}
+
+.health-bar > *{
+    border: 1px solid black;
+    width: 7px;
+    flex:1;
+}
+
+.active-hitpoint{
+    background-color: green;
+}
+
+.inactive-hitpoint{
+    background-color: red;
+}
+
+.message{
+    background-color:brown;
+
+    height: 50px;
+    width: 40%;
+}
+
+.message .log{
+    line-height: 50px;
+    font-size: 25px;
+    font-weight: bold;
+    color: var(--ivory-white);
+}
+
+.weapons h3{
+    font-size: 35px;
+}
+
+.weapons button{
+    height: 100px;
+    width: 150px;
+    cursor: pointer;
+    margin:15px;
+    background-repeat: no-repeat;
+    background-size: 80%;
+    background-position: center center;
+}
+
+.weapons .rock{
+    background-image: url(./img/rock.png) ;
+}
+
+.weapons .paper{
+    background-image: url(./img/paper.png) ;
+}
+
+.weapons .scissor{
+    background-image: url(./img/scissor.png) ;
+    transform: scalex(-1);
+}

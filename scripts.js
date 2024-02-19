@@ -73,8 +73,8 @@ function getPlayerChoiceByPrompt() {
     
 */
 
-const weapon1 = document.querySelector(".display-results .player1")
-const weapon2 = document.querySelector(".display-results .player2")
+const weapon1 = document.querySelector(".display-results .player1 .weapon")
+const weapon2 = document.querySelector(".display-results .player2 .weapon")
 
 function displayRoundWeapons(roundChoices) {
     weapon1.textContent = roundChoices[0]
@@ -147,7 +147,7 @@ function playComputerGame(numberOfRounds = 5) {
     console.log(`Final result player1= ${player_1_victories} and player2= ${player_2_victories} from a total of ${numberOfRounds} games.`)
 }
 
-const weaponsButtons = document.querySelectorAll(".weapon");
+const weaponsButtons = document.querySelectorAll(".weapons-selection button");
 
 weaponsButtons.forEach((btn) =>
     btn.addEventListener("click", () => {

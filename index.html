@@ -7,22 +7,59 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FIGHTS ON!</title>
     <script src="./scripts.js" defer></script>
+    <link rel="stylesheet" href="./styles.css">
 </head>
 
 <body>
-    <div class = "display-results">
-        <h1>Match</h1>
-        <div class = "player1">?</div>
-        <div class = "player2">?</div>
-    </div>
+    <header>
+        <h1>Valhalla Rock Paper Scissor</h1>
+    </header>
 
-    <div class = "message">Brace for battle</div>
+    <main>
+        <div class="battle">
 
-    <div class = "weapons-selection">
-        <button class="weapon">Rock</button>
-        <button class="weapon">Paper</button>
-        <button class="weapon">Scissor</button>
-    </div>
+            <div class="player1">
+                <div class="health-bar">
+                    <div class="first active-hitpoint"></div>
+                    <div class="second active-hitpoint"></div>
+                    <div class="third active-hitpoint"></div>
+                </div>
+                <img class="avatar" src="./img/hero.png" alt="?">
+            </div>
+
+            <div class="middle-ground">
+                <h2>Wyrd bid ful araed</h2>
+                <span>Destiny is all</span>
+            </div>
+
+
+            <div class="player2">
+                <img class="avatar" src="./img/dragon.png" alt="?">
+                <div class="health-bar">
+                    <div class="first active-hitpoint"></div>
+                    <div class="second active-hitpoint"></div>
+                    <div class="third active-hitpoint"></div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="message">
+            <span class="log">Brace for battle</span>
+        </div>
+
+        <div class="weapons">
+            <h3>Pick Your Weapon</h3>
+            <button class="rock"></button>
+            <button class="paper"></button>
+            <button class="scissor"></button>
+        </div>
+    </main>
+
+    <footer>
+        Made by <a href="https://github.com/Belbut">Belbut </a>, Images credited to: <a
+            href="https://www.iconarchive.com/artist/raindropmemory.html">Teekatas Suwannakrua</a>
+    </footer>
 </body>
 
 </html>
