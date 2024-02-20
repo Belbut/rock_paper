@@ -18,7 +18,18 @@ const weapon1 = document.querySelector(".display .player1.weapon");
 const weapon2 = document.querySelector(".display .player2.weapon");
 const message = document.querySelector(".message");
 const healthBar = document.querySelectorAll(".hp");
+const player1AvatarImg = document.querySelector(".player1 .avatar");
+const player2AvatarImg = document.querySelector(".player2 .avatar");
+const weaponsMessage = document.querySelector(".weapons h3")
 
+var sleepSetTimeout_ctrl;
+let listenerWeaponClick;
+
+
+async function sleep(ms) {
+    clearInterval(sleepSetTimeout_ctrl);
+    return new Promise(resolve => sleepSetTimeout_ctrl = setTimeout(resolve, ms));
+}
 
 
 onGameStart()
@@ -140,21 +151,31 @@ function removeHitpoint(playerElement) {
 
 function checkGameWinner() {
 
-    if (player_1_hitpoints == 0) {
-        //player 2 won
+    if (player_1_hitpoints == 0) {//player 2 won
+        player1AvatarImg.style.transform = "rotate(270deg)"
+        message.textContent = "You were defeated!"
         onGameEnd()
+
+
     }
 
-    if (player_2_hitpoints == 0) {
-        //player 1 won
+    if (player_2_hitpoints == 0) {//player 1 won
+        player2AvatarImg.style.transform = "rotate(90deg)"
+        message.textContent = "You slayed the dragon!"
         onGameEnd()
+
+
     }
 
 }
 
-let listenerWeaponClick;
 function onGameStart() {
-    healthBar.forEach((hp) => hp.classList.add("active-hitpoint"));
+    healthBar.forEach((hp) => {
+        hp.classList.add("active-hitpoint")
+        hp.classList.remove("inactive-hitpoint")
+    });
+
+    message.textContent = "Brace for Battle"
 
     window.addEventListener('DOMContentLoaded', () => {
         listenerWeaponClick = function () {
@@ -163,11 +184,20 @@ function onGameStart() {
 
         weaponsButtons.forEach((btn) => btn.addEventListener("click", listenerWeaponClick));
     });
+
+    player1AvatarImg.style.transform = ""
+    player2AvatarImg.style.transform = ""
+
+    weaponsMessage.textContent = "Pick Your Weapon"
+
 }
 
-function onGameEnd() {
-    weaponsButtons.forEach((btn) => btn.removeEventListener("click", listenerWeaponClick));
 
+async function onGameEnd() {
+    weaponsButtons.forEach((btn) => btn.removeEventListener("click", listenerWeaponClick));
+    await sleep(1000)
+    weaponsMessage.textContent = "Gadder your weapons if you would like to fight again!"
+    weaponsButtons.forEach((btn) => btn.addEventListener("click", () => location.reload()));
 }
 
 
