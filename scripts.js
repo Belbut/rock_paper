@@ -13,6 +13,17 @@ const WEAPON_SELECTED_MESSAGE = "Player weapon: ";
 let player_1_hitpoints = 3;
 let player_2_hitpoints = 3;
 
+const weaponsButtons = document.querySelectorAll(".weapons button");
+const weapon1 = document.querySelector(".display .player1.weapon");
+const weapon2 = document.querySelector(".display .player2.weapon");
+const message = document.querySelector(".message");
+const healthBar = document.querySelectorAll(".hp");
+
+
+
+onGameStart()
+
+
 function getComputerChoice() {
     let idComputerChoice = Math.floor(Math.random() * 3);
     return WEAPONS_ARRAY[idComputerChoice]
@@ -35,9 +46,6 @@ function getPlayerChoiceByPrompt() {
         return getPlayerChoiceByPrompt()
     }
 }
-
-const weapon1 = document.querySelector(".display .player1.weapon")
-const weapon2 = document.querySelector(".display .player2.weapon")
 
 function displayRoundWeapons(roundChoices) {
     var img1 = createElementImageWeapon(roundChoices[0])
@@ -96,17 +104,15 @@ function playRound(playerChoice, computerChoice) {
 
     }
 
-    
     presentRoundWinner(gameResult);
     checkGameWinner();
 
 }
 
-const message = document.querySelector(".message")
 
 function presentRoundWinner(gameResult) {
-    let player1 = document.querySelector(".player1") 
-    let player2 = document.querySelector(".player2") 
+    let player1 = document.querySelector(".player1")
+    let player2 = document.querySelector(".player2")
     switch (gameResult) {
         case ROUND_RESULTS_ARRAY[0]: //PLAYER 1 WON
             player_2_hitpoints--;
@@ -125,32 +131,43 @@ function presentRoundWinner(gameResult) {
             break;
     }
 
-    
-/*     return gameResult
- */}
-
-function removeHitpoint(playerElement){
-   let topHitpointElement = playerElement.querySelector(".health-bar .active-hitpoint");
-   topHitpointElement.classList.replace("active-hitpoint" , "inactive-hitpoint")
 }
 
-function checkGameWinner(){
+function removeHitpoint(playerElement) {
+    let topHitpointElement = playerElement.querySelector(".health-bar .active-hitpoint");
+    topHitpointElement.classList.replace("active-hitpoint", "inactive-hitpoint")
+}
+
+function checkGameWinner() {
+
+    if (player_1_hitpoints == 0) {
+        //player 2 won
+        onGameEnd()
+    }
+
+    if (player_2_hitpoints == 0) {
+        //player 1 won
+        onGameEnd()
+    }
 
 }
 
-/* function playComputerGame(numberOfRounds = 5) {
-    for (let i = 0; i < numberOfRounds; i++) {
-        playRound(getComputerChoice(), getComputerChoice())
-    }
-    console.log(`Final result player1= ${player_1_victories} and player2= ${player_2_victories} from a total of ${numberOfRounds} games.`)
-} */
+let listenerWeaponClick;
+function onGameStart() {
+    healthBar.forEach((hp) => hp.classList.add("active-hitpoint"));
 
-const weaponsButtons = document.querySelectorAll(".weapons button");
+    window.addEventListener('DOMContentLoaded', () => {
+        listenerWeaponClick = function () {
+            playRound(this.id, getComputerChoice());
+        };
 
-weaponsButtons.forEach((btn) =>
-    btn.addEventListener("click", () => {
-        playRound(btn.id, getComputerChoice())
-    }
-    )
-)
+        weaponsButtons.forEach((btn) => btn.addEventListener("click", listenerWeaponClick));
+    });
+}
+
+function onGameEnd() {
+    weaponsButtons.forEach((btn) => btn.removeEventListener("click", listenerWeaponClick));
+
+}
+
 
